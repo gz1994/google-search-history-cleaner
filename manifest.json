@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "Google Search History Cleaner",
+  "description": "Locally remove Google Search result pages from Chrome browsing history while preserving other websites.",
+  "version": "1.0.0",
+  "permissions": ["history"],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
