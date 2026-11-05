@@ -1,12 +1,15 @@
 'use strict';
 
 // No network requests, no remote code, no storage.
-// Only match Google Search result URLs on google.com or www.google.com.
+// Only match Google Search result URLs on an explicit hostname allowlist.
 function isGoogleSearchResultsUrl(rawUrl) {
   try {
     const url = new URL(rawUrl);
-    const isGoogle = url.hostname === 'google.com' ||
-                     url.hostname === 'www.google.com';
+    const googleSearchHosts = new Set([
+      'google.com', 'www.google.com',
+      'google.com.hk', 'www.google.com.hk'
+    ]);
+    const isGoogle = googleSearchHosts.has(url.hostname);
     return (url.protocol === 'https:' || url.protocol === 'http:') &&
            isGoogle &&
            url.pathname === '/search';

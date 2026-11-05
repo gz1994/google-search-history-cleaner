@@ -10,7 +10,7 @@
 
 ### 功能
 
-- 仅匹配 `http://google.com/search`、`https://google.com/search` 以及 `www.google.com` 下的 `/search` 路径（包括其查询参数）。
+- 仅匹配 `google.com`、`www.google.com`、`google.com.hk`、`www.google.com.hk` 的 `/search` 路径（HTTP/HTTPS，包含查询参数）。
 - 当 Chrome 记录匹配网址后，通过 `chrome.history.deleteUrl()` 删除对应的历史网址。
 - 不使用远程服务、第三方依赖或配置同步存储。
 - 默认**不扫描或清除安装前的历史记录**。
@@ -26,14 +26,14 @@
 ### 验证方法
 
 1. 在 Google 搜索一个测试关键词。
-2. 打开 `chrome://history`，检查对应的 `google.com/search` 页面是否已被删除。
+2. 打开 `chrome://history`，检查对应的 `google.com/search` or `google.com.hk/search` 或 `google.com.hk/search` 页面是否已被删除。
 3. 访问其他网站并确认其浏览记录仍保留。
 
 ### 隐私与限制
 
 - 扩展**只申请 `history` 权限**。Chrome 的历史权限可访问完整浏览记录，虽然本扩展代码仅针对特定 Google 搜索网址执行删除操作。
 - 扩展**先收到 Chrome 已记录的历史事件，再执行删除**；无法阻止历史条目短暂产生，也不保证每次删除一定成功。
-- 仅匹配 `google.com` 和 `www.google.com` 的 `/search` 页面，不匹配 `google.co.uk` 等其他国家域名，也不匹配所有可能的 Google 搜索入口。
+- 仅匹配 `google.com`、`www.google.com`、`google.com.hk` 和 `www.google.com.hk` 的 `/search` 页面；不匹配其他国家域名，也不匹配所有可能的 Google 搜索入口。Google 首页（如 `https://www.google.com.hk/`）不会被删除。
 - **不会清除 Google 账号内的搜索活动、Google 搜索建议、浏览器缓存或其他搜索服务端数据**。
 - `chrome.history.deleteUrl()` 针对完整网址删除历史条目；如某个相同网址曾被访问多次，可能一并移除该网址对应的历史访问记录。
 - 本扩展不发送网络请求，但 Google 搜索本身仍会将查询发送给 Google。
@@ -68,7 +68,7 @@ A minimal, auditable Chrome Manifest V3 extension that removes **newly visited G
 ### Testing
 
 1. Search for a test phrase on Google.
-2. Visit `chrome://history` and check whether the matching `google.com/search` URL was removed.
+2. Visit `chrome://history` and check whether the matching `google.com/search` or `google.com.hk/search` URL was removed.
 3. Visit another website and verify its history remains available.
 
 ### Privacy and limitations
@@ -83,3 +83,9 @@ A minimal, auditable Chrome Manifest V3 extension that removes **newly visited G
 ### Disable / uninstall
 
 Go to `chrome://extensions` and disable or remove the extension.
+
+
+### v1.1 / 版本 1.1
+
+- 中文：新增 `google.com.hk` 和 `www.google.com.hk` 搜索结果页匹配，仍不删除 Google 首页。
+- English: Added `google.com.hk` and `www.google.com.hk` search result URL matching; Google homepages remain untouched.
